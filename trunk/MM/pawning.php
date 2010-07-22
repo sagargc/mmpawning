@@ -166,6 +166,7 @@ login again.</a></p>
 
 
 	<?php
+	$dataSubmitted = $_GET['submitted'];
 	if($dataSubmitted == "yes") {
 		$database = "mm";
 		$username = "root";
@@ -179,11 +180,11 @@ login again.</a></p>
 		$genericResult = mysql_query($genericInsert);
 
 		$cus_detailInsert = "INSERT INTO customer_details(cus_id,name,address) "
-		."VALUES('{$_POST['id']}','{$_POST['name']}','{$date}','{$_POST['address']}');";
+		."VALUES('{$_POST['id']}','{$_POST['name']}','{$_POST['address']}');";
 		$genericResult = mysql_query($cus_detailInsert);
 
 		$cus_refInsert = "INSERT INTO customer_ref(cus_id,ref_no) "
 		."VALUES('{$_POST['id']}','{$_POST['ref_no']}');";
 		$genericResult = mysql_query($cus_refInsert);
-}
+	}
 ?>
