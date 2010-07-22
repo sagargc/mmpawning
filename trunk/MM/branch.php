@@ -42,5 +42,6 @@ if ( $logged ) {
 <?php 
 if ( $_GET['submitted'] == "yes" ) {
 	$_SESSION['branch'] = $_POST['branch'];
+	print 'you have chosen '.$_POST['branch'].' branch to input data';
 }
 ?>
