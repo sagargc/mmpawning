@@ -33,6 +33,7 @@ $logged = $_SESSION['logged'];?>
 					<li><a href="home.php?page=salary">Salary</a></li>
 					<li><a href="home.php?page=mm">MM Bank</a></li>
 					<li><a href="home.php?page=other">Other</a></li>
+					<li><a href="home.php?page=search">Search</a></li>
 				</ul>
 		</div>
 		<!-- end menu -->
@@ -45,29 +46,32 @@ $logged = $_SESSION['logged'];?>
 			<div id="form">
 				<?php
 					$pageName = $_GET['page'];
-					if($pageName=="pawning") {
+					if( $pageName == "pawning" ) {
 						include("pawning.php");
-					} else if($pageName=="redeems") {
+					} else if( $pageName == "redeems" ) {
 						include("redeem.php");
-					} else if($pageName=="sinna") {
+					} else if( $pageName == "sinna" ) {
 						include("sinna.php");
-					} else if($pageName=="salary") {
+					} else if( $pageName == "salary" ) {
 						include("salary.php");
-					} else if($pageName=="expences") {
+					} else if( $pageName == "expences" ) {
 						include("expences.php");
-					} else if($pageName=="other") {
+					} else if( $pageName == "other" ) {
 						include("other.php");
-					} else if($pageName=="home") {
+					} else if( $pageName == "home" ) {
 						print 'Welcome to MM Pawning Control Center';
-					} else if($pageName=="login") {
+					} else if( $pageName == "login" ) {
 						include("login.php");
-					} else if($pageName=="logout") {
+					} else if( $pageName == "logout" ) {
 						include("logout.php");
-					}else if($pageName=="mm") {
+					}else if( $pageName == "mm" ) {
 						include("mm.php");
 					}
-					else if($pageName=="branch") {
+					else if( $pageName == "branch" ) {
 						include("branch.php");
+					}
+					else if( $pageName == "search" ) {
+						include("search.php");
 					}
 				?>
 			</div><!--close form-->	
