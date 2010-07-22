@@ -179,10 +179,19 @@ function validateform(form)
 </legend>
 </fieldset>
 
-
-
 <?php } else { ?>
 <p>You have not logged in. <a href="home.php?page=login">Click here to login again.</a></p>
 <?php } ?>
 
-
+<?php
+if($dataSubmitted == "yes") {
+	$database = "creditcontro";
+	$username = "root";
+	$password = "";
+	mysql_connect(localhost,$username,$password);
+	mysql_select_db($database) or die("Unable to open database!");
+	$date = date('Y\-m\-d');
+	$genericInsert = "INSERT INTO businessdetails(businessId,businessName,businessAddress,telephone,fax,email,website,businessType,registeredDate,creditLimit,creditTime) "
+	."VALUES('{$_POST['businessId']}','{$_POST['businessName']}','{$_POST['businessAddres']}','{$_POST['telephone']}','{$_POST['fax']}','{$_POST['email']}',"
+	."'{$_POST['website']}','{$_POST['businessType']}','$date','{$_POST['creditLimit']}','{$_POST['creditTime']}');";
+	$genericResult = mysql_query($genericInsert);
