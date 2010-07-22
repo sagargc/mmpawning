@@ -1,5 +1,4 @@
 
- 
 <?php session_start(); 
 /**
 * @version 2.0
@@ -59,20 +58,23 @@ else {
 		
 	}
 	else {
-		$passwordQuery = "SELECT password FROM users WHERE username = '$user'";
+		$passwordQuery = "SELECT password,isAdmin FROM users WHERE username = '$user'";
 		$passwordResult = mysql_query($passwordQuery);
 		$passwrd = mysql_result($passwordResult,"password");
 		//echo $passwrd;
-
-		if($passwrd == $pass){
-			print("<p> Welcome to the Management Information System</p>");?>
-			<p>Choose the <a href="home.php?page=branch"><Strong>Branch</strong></a></p>
-			
-			<?php
+		//check password hashing input using md5() function
+		if( $passwrd == md5($pass) ) {
+			echo '<p> Welcome to the Management Information System</p>';
+			echo '<p>Choose the <a href="home.php?page=branch"><Strong>Branch</strong></a></p>';
 			$_SESSION['logged'] = true;
+			$_SESSION['username'] = $usr;
+			//if user is admin, set session variable
+			if ( (int)mysql_result($passwordResult, "isAdmin") == 1 ) {
+				$_SESSION['isAdmin'] = true;
+			}
 		}
 		else {
-				print("<p>The password you entered is wrong. Please enter the correct password.</p>");
+				echo '<p>The password you entered is wrong. Please enter the correct password.</p>';
 				$loginAttempt = false;
                 }
            }
