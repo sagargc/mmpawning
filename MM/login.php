@@ -32,7 +32,7 @@ if ( !$logged ) { ?>
 
 <?php 
 $loginAttempt = $_GET['loginAttempt'];
-$database = "mm";
+$database = "mm_pawning";
 $username = "root";
 $password = "";
 if($loginAttempt==true) {
