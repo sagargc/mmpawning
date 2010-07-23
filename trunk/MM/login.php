@@ -35,6 +35,9 @@ $loginAttempt = $_GET['loginAttempt'];
 $database = "mm_pawning";
 $username = "root";
 $password = "";
+$username2 = "sandarau";
+$password2 = "5DXaugZ3xD";
+$database2 = "sandarau_mmp";
 if($loginAttempt==true) {
        
 
@@ -45,8 +48,8 @@ if($user == "" || $pass == "") {
 	$_SESSION['logged'] = false;
 }
 else {
-	mysql_connect(localhost,$username,$password);
-	@mysql_select_db($database) or die("Unable to open database!");
+	mysql_connect(localhost,$username2,$password2);
+	@mysql_select_db($database2) or die("Unable to open database!");
 	$usernameQuery = "SELECT username FROM users WHERE username = '$user'";
 	$usernameResult = mysql_query($usernameQuery);
 	//$i = mysql_numrows($result);

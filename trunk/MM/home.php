@@ -70,6 +70,10 @@ $logged = $_SESSION['logged'];?>
 						include("withdraw.php");
 					}else if( $pageName == "deposit" ) {
 						include("deposit.php");
+					} else if( $pageName == "branch" ) {
+						include("branch.php");
+					} else if( $pageName == "search" ) {
+						include("search.php");
 					}
 					
 				?>
