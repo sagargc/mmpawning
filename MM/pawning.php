@@ -168,23 +168,33 @@ login again.</a></p>
 	<?php
 	$dataSubmitted = $_GET['submitted'];
 	if($dataSubmitted == "yes") {
-		$database = "mm";
+		$database = "mm_pawning";
 		$username = "root";
 		$password = "";
-		mysql_connect(localhost,$username,$password);
-		mysql_select_db($database) or die("Unable to open database!");
+		$database2 = "sandarau_mmp";
+		$username2 = "sandarau";
+		$password2 = "5DXaugZ3xD";
+		mysql_connect(localhost,$username2,$password2);
+		mysql_select_db($database2) or die("Unable to open database!");
 		$date = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['date'];
 
 		$genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch) "
 		."VALUES('{$_POST['ref_no']}','{$_POST['amount']}','{$date}','{$_POST['type']}','{$_POST['weight']}','{$_SESSION['branch']}');";
-		$genericResult = mysql_query($genericInsert);
+		$pawningResult = mysql_query($genericInsert);
 
 		$cus_detailInsert = "INSERT INTO customer_details(cus_id,name,address) "
 		."VALUES('{$_POST['id']}','{$_POST['name']}','{$_POST['address']}');";
-		$genericResult = mysql_query($cus_detailInsert);
+		$cusResult = mysql_query($cus_detailInsert);
 
 		$cus_refInsert = "INSERT INTO customer_ref(cus_id,ref_no) "
 		."VALUES('{$_POST['id']}','{$_POST['ref_no']}');";
-		$genericResult = mysql_query($cus_refInsert);
+		$referenceResult = mysql_query($cus_refInsert);
+		if ( ($pawningResult && $cusResult && $referenceResult) != null ) {
+			echo '<p>Data entered successfully</p>';
+		}
+		else {
+			echo '<p>Failed to enter data</p>';
+		}
+		
 	}
 ?>

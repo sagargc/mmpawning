@@ -4,8 +4,11 @@ $logged = $_SESSION['logged'];
 $database = "mm_pawning";
 $username = "root";
 $password = "";
-mysql_connect(localhost,$username,$password);
-mysql_select_db($database) or die("Unable to open database!");
+$username2 = "sandarau";
+$password2 = "5DXaugZ3xD";
+$database2 = "sandarau_mmp";
+mysql_connect(localhost,$username2,$password2);
+mysql_select_db($database2) or die("Unable to open database!");
 
 if ( $logged ) {
 ?>
@@ -43,13 +46,14 @@ if ( $_GET['submitted'] == 'yes' ) {
 	if ( $_POST['type'] == 'cus_name' ) {
 		$display .= '<tr>'
 					.'<th>Bill Id</th><th>Date</th><th>Weight</th>'
-					.'<th>Amount</th><th>Status</th><th>Branch</td></tr>';
+					.'<th>Amount</th><th>Type</th><th>Branch</td></tr>';
 		$searchQuery = "SELECT cus_id FROM customer_details WHERE"
 						." name LIKE '%{$_POST['searchData']}'"
 						." OR name LIKE '{$_POST['searchData']}%'"
 						." OR name LIKE '%{$_POST['searchData']}%'";
 		$searchResult = mysql_query($searchQuery);
 		$cusId = mysql_result($searchResult, 'cus_id');
+		
 		$transQuery = "SELECT ref_no FROM customer_ref WHERE"
 						." cus_id='$cusId'";
 		$transResult = mysql_query($transQuery);
@@ -58,30 +62,33 @@ if ( $_GET['submitted'] == 'yes' ) {
 			$transId = mysql_result($transResult,$i,'ref_no');
 			$sql = "SELECT * FROM pawning WHERE ref_no='$transId'";
 			$data = mysql_query($sql);
-			$display .= '<tr><td>'.mysql_result($data,'ref_no').'</td>'
-						.'<td>'.mysql_result($data,'date').'</td>'
-						.'<td>'.mysql_result($data,'weight').'</td>'
-						.'<td>'.mysql_result($data,'amount').'</td>'
-						.'<td>'.mysql_result($data,'status').'</td>'
-						.'<td>'.mysql_result($data,'branch').'</td></tr>';
+			$data = mysql_fetch_assoc($data);
+			$x = 1;
+			$display .= '<tr><td>'.$data['ref_no'].'</td>'
+						.'<td>'.$data['date'].'</td>'
+						.'<td>'.$data['weight'].'</td>'
+						.'<td>'.$data['amount'].'</td>'
+						.'<td>'.$data['type'].'</td>'
+						.'<td>'.$data['branch'].'</td></tr>';
 		}
 	}
 	else if ( $_POST['type'] == 'bill_id' ) {
 		$display .= '<tr>'
 					.'<th>Customer Name</th><th>Date</th><th>Weight</th>'
-					.'<th>Amount</th><th>Status</th><th>Branch</td></tr>';
+					.'<th>Amount</th><th>Type</th><th>Branch</td></tr>';
 		$sql2 = "SELECT * FROM pawning WHERE ref_no='{$_POST['searchData']}'";
 		$data = mysql_query($sql2);
-		$cusIdResult = mysql_query("SELECT cus_id FROM customer_ref WHERE ref_no'{$_POST['searchData']}'");
+		$data = mysql_fetch_assoc($data);
+		$cusIdResult = mysql_query("SELECT cus_id FROM customer_ref WHERE ref_no='{$_POST['searchData']}'");
 		$cusId = mysql_result($cusIdResult,'cus_id');
 		$cusNameResult = mysql_query("SELECT name FROM customer_details WHERE cus_id='$cusId'");
 		$cusName = mysql_result($cusNameResult,'name');
 		$display .= '<tr><td>'.$cusName.'</td>'
-					.'<td>'.mysql_result($data,'date').'</td>'
-					.'<td>'.mysql_result($data,'weight').'</td>'
-					.'<td>'.mysql_result($data,'amount').'</td>'
-					.'<td>'.mysql_result($data,'status').'</td>'
-					.'<td>'.mysql_result($data,'branch').'</td></tr>';
+					.'<td>'.$data['date'].'</td>'
+					.'<td>'.$data['weight'].'</td>'
+					.'<td>'.$data['amount'].'</td>'
+					.'<td>'.$data['type'].'</td>'
+					.'<td>'.$data['branch'].'</td></tr>';
 	}
 	$display .= '</table></frameset>';
 	echo $display;
