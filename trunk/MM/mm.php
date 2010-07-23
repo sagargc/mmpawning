@@ -14,12 +14,12 @@ if ( $logged ) {
 	<form method="post" action="">
 		<tr>
 			<td class="with">
-            <a href="home.php">dfdsf</a>
-				<!--<a href="home.php"?page="withdrawals"><img src="images/with.png"></a>-->
+            <a href="home.php"></a>
+				<a href="home.php?page=withdraw"><img src="images/with.png"></a>
                 
 			</td>
 			<td class="depo">
-				<!--<a href="home.php"?page="withdrawals"><img src="images/depo.png"></a>-->
+				<a href="home.php?page=deposit"><img src="images/depo.png"></a>
 			</td>
 		</tr>
 		

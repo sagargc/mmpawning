@@ -66,13 +66,12 @@ $logged = $_SESSION['logged'];?>
 						include("logout.php");
 					}else if( $pageName == "mm" ) {
 						include("mm.php");
+					}else if( $pageName == "withdraw" ) {
+						include("withdraw.php");
+					}else if( $pageName == "deposit" ) {
+						include("deposit.php");
 					}
-					else if( $pageName == "branch" ) {
-						include("branch.php");
-					}
-					else if( $pageName == "search" ) {
-						include("search.php");
-					}
+					
 				?>
 			</div><!--close form-->	
 		</div><!--close box orange-->	
