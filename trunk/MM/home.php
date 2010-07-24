@@ -33,6 +33,7 @@ $logged = $_SESSION['logged'];?>
 					<li><a href="home.php?page=salary">Salary</a></li>
 					<li><a href="home.php?page=mm">MM Bank</a></li>
 					<li><a href="home.php?page=other">Other</a></li>
+					<li><a href="home.php?page=view">View data</a></li>
 					<li><a href="home.php?page=search">Search</a></li>
 				</ul>
 		</div>
@@ -74,6 +75,8 @@ $logged = $_SESSION['logged'];?>
 						include("branch.php");
 					} else if( $pageName == "search" ) {
 						include("search.php");
+					} else if( $pageName == "view" ) {
+						include("view_trans.php");
 					}
 					
 				?>

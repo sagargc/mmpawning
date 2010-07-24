@@ -1,14 +1,8 @@
 <?php
 session_start();
 $logged = $_SESSION['logged'];
-$database = "mm_pawning";
-$username = "root";
-$password = "";
-$username2 = "sandarau";
-$password2 = "5DXaugZ3xD";
-$database2 = "sandarau_mmp";
-mysql_connect(localhost,$username2,$password2);
-mysql_select_db($database2) or die("Unable to open database!");
+include_once('localDB.php');
+//include_once('hostingDB.php');
 
 if ( $logged ) {
 ?>

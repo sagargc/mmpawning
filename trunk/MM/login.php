@@ -31,13 +31,8 @@ if ( !$logged ) { ?>
 <?php } ?>
 
 <?php 
-$loginAttempt = $_GET['loginAttempt'];
-$database = "mm_pawning";
-$username = "root";
-$password = "";
-$username2 = "sandarau";
-$password2 = "5DXaugZ3xD";
-$database2 = "sandarau_mmp";
+include_once('localDB.php');
+//include_once('hostingDB.php');
 if($loginAttempt==true) {
        
 
