@@ -32,7 +32,7 @@ if ( !$logged ) { ?>
 
 <?php 
 include_once('localDB.php');
-//include_once('hostingDB.php');
+
 $loginAttempt = $_GET['loginAttempt'];
 if($loginAttempt==true) {
        

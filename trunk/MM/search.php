@@ -3,7 +3,7 @@ session_start();
 include_once('loginchecker.php');
 
 include_once('localDB.php');
-//include_once('hostingDB.php');
+
 
 
 ?>

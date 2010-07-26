@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('localDB.php');
-//include_once('hostingDB.php');
+
 include_once('loginchecker.php');
 if ( $logged ) {
 	$viewQ = "SELECT * FROM pawning LIMIT 20";

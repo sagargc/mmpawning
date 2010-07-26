@@ -169,14 +169,7 @@ login again.</a></p> -->
 	<?php
 	$dataSubmitted = $_GET['submitted'];
 	if($dataSubmitted == "yes") {
-		$database = "mm_pawning";
-		$username = "root";
-		$password = "";
-		$database2 = "sandarau_mmp";
-		$username2 = "sandarau";
-		$password2 = "5DXaugZ3xD";
-		mysql_connect(localhost,$username2,$password2);
-		mysql_select_db($database2) or die("Unable to open database!");
+		include_once('localDB.php');
 		$date = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['date'];
 
 		$genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch) "
