@@ -1,11 +1,11 @@
 <?php
 session_start();
+include_once('loginchecker.php');
 $day = date('d');
 $month = date('F');
 $numericMonth = date('m');
 $year = date('Y');
-$logged = $_SESSION['logged'];
-if ( $logged ) {
+
 ?>
 
 
@@ -25,6 +25,4 @@ if ( $logged ) {
 		
 	</form>
 </table>
-<?php } else { ?>
-<p>You have not logged in. <a href="home.php?page=login">Click here to login again.</a></p>
-<?php } ?>
+

@@ -1,10 +1,11 @@
 <?php
 session_start();
-$logged = $_SESSION['logged'];
+include_once('loginchecker.php');
+
 include_once('localDB.php');
 //include_once('hostingDB.php');
 
-if ( $logged ) {
+
 ?>
 <form name="searchForm" method="post"
 	action="home.php?page=search&submitted=yes">
@@ -30,9 +31,7 @@ if ( $logged ) {
 </form>
 
 
-<?php } else { ?>
-<p>You have not logged in. <a href="home.php?page=login">Click here to login again.</a></p>
-<?php } ?>
+
 <?php 
 if ( $_GET['submitted'] == 'yes' ) {
 	$display = '<frameset><legend>Details</legend><table width="80%" border="0">';

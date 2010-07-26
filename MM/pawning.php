@@ -1,12 +1,13 @@
 <?php
 session_start();
+include_once('loginchecker.php');
 $day = date('d');
 $month = date('F');
 $numericMonth = date('m');
 $year = date('Y');
-$logged = $_SESSION['logged'];
-if ( $logged ) {
-	?>
+//$logged = $_SESSION['logged'];
+//if ( $logged ) {
+?>
 
 <script type="text/javascript">
 function validateEmpty(field,errormsg)
@@ -159,10 +160,10 @@ function validateform(form)
 
 
 
-	<?php } else { ?>
-<p>You have not logged in. <a href="home.php?page=login">Click here to
-login again.</a></p>
-	<?php } ?>
+	<?php //} else { ?>
+<!--  <p>You have not logged in. <a href="home.php?page=login">Click here to
+login again.</a></p> -->
+	<?php //} ?>
 
 
 	<?php
