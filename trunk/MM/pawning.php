@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 include_once('loginchecker.php');
 $day = date('d');
 $month = date('F');

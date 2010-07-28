@@ -1,5 +1,5 @@
 
-<?php session_start(); 
+<?php //session_start(); 
 /**
 * @version 2.0
 * @package amsp
