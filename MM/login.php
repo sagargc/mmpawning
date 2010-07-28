@@ -44,8 +44,6 @@ if($user == "" || $pass == "") {
 	$_SESSION['logged'] = false;
 }
 else {
-	mysql_connect(localhost,$username2,$password2);
-	@mysql_select_db($database2) or die("Unable to open database!");
 	$usernameQuery = "SELECT username FROM users WHERE username = '$user'";
 	$usernameResult = mysql_query($usernameQuery);
 	//$i = mysql_numrows($result);

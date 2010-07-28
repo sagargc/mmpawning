@@ -45,7 +45,8 @@ if ( $_GET['submitted'] == 'yes' ) {
 						." OR name LIKE '{$_POST['searchData']}%'"
 						." OR name LIKE '%{$_POST['searchData']}%'";
 		$searchResult = mysql_query($searchQuery);
-		$cusId = mysql_result($searchResult, 'cus_id');
+		$cusId = mysql_fetch_assoc($searchResult);
+		$cusId = $cusId['cus_id'];
 		
 		$transQuery = "SELECT ref_no FROM customer_ref WHERE"
 						." cus_id='$cusId'";
