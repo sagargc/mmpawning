@@ -2,7 +2,7 @@
 
 $database = "mm_pawning";
 $username = "root";
-$password = "rami";
+$password = "";
 $username2 = "sandarau";
 $password2 = "5DXaugZ3xD";
 $database2 = "sandarau_mmp";
