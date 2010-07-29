@@ -24,8 +24,8 @@ $no=1;
 for ( $i = 0; $i < $num; $i++ ) {
 	$ref = mysql_result($view,$i,'ref_no');
 	echo '<tr><td>'.$no++.'</td>'.
-                 '<td>'.$ref.'</td>'.
-		 '<td>'.mysql_result($view,$i,'date').'</td>'.
+         '<td>'.$ref.'</td>'.
+         '<td>'.mysql_result($view,$i,'date').'</td>'.
 		 '<td>'.mysql_result($view,$i,'weight').'</td>'.
 		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
 		 '<td>'.mysql_result($view,$i,'type').'</td>'.
