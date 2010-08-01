@@ -19,7 +19,7 @@ if ( $logged ) {
 					<option value="kurunegala">Kurunegala</option>
 					<option value="wariyapola">Wariyapola</option>
                     <option value="kekirawa">Kekirawa</option>
-					<option value="madawachchiya">Madawachchiya</option>                    
+					<option value="medawachchiya">Madawachchiya</option>
 			</select>
 				
 		</tr>

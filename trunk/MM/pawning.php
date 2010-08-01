@@ -1,6 +1,9 @@
 <?php
 //session_start();
 include_once('loginchecker.php');
+include_once('localDB.php');
+//include_once('loginchecker.php');
+include_once('functions.php');
 $day = date('d');
 $month = date('F');
 $numericMonth = date('m');
@@ -69,10 +72,10 @@ function validateform(form)
 		<td>Jewellary:</td>
 		<td><select name="type">
 			<option value="">Select</option>
-			<option value="chain">Chain</option>
-			<option value="ring">Ring</option>
-			<option value="bangle">Bangle</option>
-			<option value="bracelet">bracelet</option>
+			<option value="Chain">Chain</option>
+			<option value="Ring">Ring</option>
+			<option value="Bangle">Bangle</option>
+			<option value="Bracelet">bracelet</option>
 		</select></td>
 	</tr>
 	<tr>
@@ -157,83 +160,41 @@ function validateform(form)
 	</form>
 </table>
 </legend></fieldset>
-
-
-
-	<?php //} else { ?>
-<!--  <p>You have not logged in. <a href="home.php?page=login">Click here to
-login again.</a></p> -->
-	<?php //} ?>
-
-
-	<?php
-	$dataSubmitted = $_GET['submitted'];
-	if($dataSubmitted == "yes") {
-		include_once('localDB.php');
-		$date = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['date'];
-
-		$genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch) "
-		."VALUES('{$_POST['ref_no']}','{$_POST['amount']}','{$date}','{$_POST['type']}','{$_POST['weight']}','{$_SESSION['branch']}');";
-		$pawningResult = mysql_query($genericInsert);
-
-		$cus_detailInsert = "INSERT INTO customer_details(cus_id,name,address) "
-		."VALUES('{$_POST['id']}','{$_POST['name']}','{$_POST['address']}');";
-		$cusResult = mysql_query($cus_detailInsert);
-
-		$cus_refInsert = "INSERT INTO customer_ref(cus_id,ref_no) "
-		."VALUES('{$_POST['id']}','{$_POST['ref_no']}');";
-		$referenceResult = mysql_query($cus_refInsert);
-		if ( ($pawningResult && $cusResult && $referenceResult) != null ) {
-			echo '<p>Data entered successfully</p>';
-		}
-		else {
-			echo '<p>Failed to enter data</p>';
-		}
-		
-	}
-?>
-
 <?php
-//session_start();
-include_once('localDB.php');
-include_once('loginchecker.php');
+showStats('pawning');
+$dataSubmitted = $_GET['submitted'];
 
-$viewQ = "SELECT * FROM pawning LIMIT 20";
-$view = mysql_query($viewQ);
-$num = mysql_num_rows($view);
-?>
-<frameset><legend>Details</legend>
-<table width="80%" border="1">
-	<tr>
-                <th>No</th>
-		<th>Bill Id</th>
-		<th>Date</th>
-		<th>Weight</th>
-		<th>Amount</th>
-		<th>Type</th>
-		<th>Branch</th>
-		<th>Delete</th>
-	</tr>
-<?php
-$no=1;
-for ( $i = 0; $i < $num; $i++ ) {
-	$ref = mysql_result($view,$i,'ref_no');
-	echo '<tr><td>'.$no++.'</td>'.
-                 '<td>'.$ref.'</td>'.
-		 '<td>'.mysql_result($view,$i,'date').'</td>'.
-		 '<td>'.mysql_result($view,$i,'weight').'</td>'.
-		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
-		 '<td>'.mysql_result($view,$i,'type').'</td>'.
-		 '<td>'.mysql_result($view,$i,'branch').'</td>'.
-		 '<td style="text-align:center"><a href="home.php?page=view&func=delete&ref='.$ref.'"><img src="images/b_drop.png" /></a></td></tr>';
+if($dataSubmitted == "yes") {
+        displayToday('pawning');
+        //include_once('localDB.php');
+        $date = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['date'];
+
+        $genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch) "
+        ."VALUES('{$_POST['ref_no']}','{$_POST['amount']}','{$date}','{$_POST['type']}','{$_POST['weight']}','{$_SESSION['branch']}');";
+        $pawningResult = mysql_query($genericInsert);
+
+        $cus_detailInsert = "INSERT INTO customer_details(cus_id,name,address) "
+        ."VALUES('{$_POST['id']}','{$_POST['name']}','{$_POST['address']}');";
+        $cusResult = mysql_query($cus_detailInsert);
+
+        $cus_refInsert = "INSERT INTO customer_ref(cus_id,ref_no) "
+        ."VALUES('{$_POST['id']}','{$_POST['ref_no']}');";
+        $referenceResult = mysql_query($cus_refInsert);
+        if ( ($pawningResult && $cusResult && $referenceResult) != null ) {
+                echo '<p>Data entered successfully</p>';
+        }
+        else {
+                echo '<p>Failed to enter data</p>';
+        }
+
 }
+//session_start();
 if ( $_GET['func'] == 'delete' ) {
 	$id = $_GET['ref'];
-	$deleted = mysql_query("DELETE FROM pawning WHERE ref_no='$id'");
+	$deleted = deleteRecord($id);
 	if ( $deleted ) {
 		echo '<p>Item deleted successfully.</p>';
 	}
+        displayToday('pawning');
 }
 ?>
-</table>
-</frameset>
