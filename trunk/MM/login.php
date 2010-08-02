@@ -34,49 +34,50 @@ if ( !$logged ) { ?>
 include_once('localDB.php');
 
 $loginAttempt = $_GET['loginAttempt'];
+
 if($loginAttempt==true) {
        
 
-$user = $_POST['inputtext1'];
-$pass = $_POST['inputtext2'];
-if($user == "" || $pass == "") {
-	echo "<p>You have left one or more fields empty. Please fill in all fields</p>";
-	$_SESSION['logged'] = false;
-}
-else {
-	$usernameQuery = "SELECT username FROM users WHERE username = '$user'";
-	$usernameResult = mysql_query($usernameQuery);
-	//$i = mysql_numrows($result);
-	$usr = mysql_result($usernameResult,"username");
-	//echo $usr;
-	if($user != $usr) {
-		print("<p>The username you entered is invalid. Please enter a valid username</p>");
-		$loginAttempt = false;
-		
+	$user = $_POST['inputtext1'];
+	$pass = $_POST['inputtext2'];
+	
+	if($user == "" || $pass == "") {
+		echo "<p>You have left one or more fields empty. Please fill in all fields</p>";
+		$_SESSION['logged'] = false;
 	}
 	else {
-		$passwordQuery = "SELECT password,isAdmin FROM users WHERE username = '$user'";
-		$passwordResult = mysql_query($passwordQuery);
-		$passwrd = mysql_result($passwordResult,"password");
-		//echo $passwrd;
-		//check password hashing input using md5() function
-		if( $passwrd == md5($pass) ) {
-			echo '<p> Welcome to the Management Information System</p>';
-			echo '<p>Choose the <a href="home.php?page=branch"><Strong>Branch</strong></a></p>';
-			$_SESSION['logged'] = true;
-			$_SESSION['username'] = $usr;
-			//if user is admin, set session variable
-			if ( (int)mysql_result($passwordResult, "isAdmin") == 1 ) {
-				$_SESSION['isAdmin'] = true;
-			}
+		$usernameQuery = "SELECT username FROM users WHERE username = '$user'";
+		$usernameResult = mysql_query($usernameQuery);
+		//$i = mysql_numrows($result);
+		//$usr = mysql_result($usernameResult,"username");
+		//echo $usr;
+		if( !$usernameResult ) {
+			print("<p>The username you entered is invalid. Please enter a valid username</p>");
+			$loginAttempt = false;
 		}
 		else {
+			$passwordQuery = "SELECT password,isAdmin FROM users WHERE username = '$user'";
+			$passwordResult = mysql_fetch_assoc(mysql_query($passwordQuery));
+			$passwrd = $passwordResult['password'];
+			//echo $passwrd;
+			//check password hashing input using md5() function
+			if( $passwrd == md5($pass) ) {
+				echo '<p> Welcome to the Management Information System</p>';
+				echo '<p>Choose the <a href="home.php?page=branch"><strong>Branch</strong></a></p>';
+				$_SESSION['logged'] = true;
+				$_SESSION['username'] = $usr;
+				//if user is admin, set session variable
+				if ( (int)$passwordResult['isAdmin'] == 1 ) {
+					$_SESSION['isAdmin'] = true;
+				}
+			}
+			else {
 				echo '<p>The password you entered is wrong. Please enter the correct password.</p>';
 				$loginAttempt = false;
-                }
-           }
-        }
-    }
+	        }
+	    }
+	}
+}
 ?>
 
 

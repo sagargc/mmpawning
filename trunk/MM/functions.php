@@ -12,7 +12,10 @@ function deleteRecord($id) {
    }
    
 }
-
+/**
+ * Display function to get data from tables and display
+ * @param string $page page which is calling the function in a way that can be passed to $_GET
+ */
 function display($page) {
     echo '<frameset><legend>Details</legend>
         <table width="80%" border="1">
@@ -43,7 +46,10 @@ function display($page) {
     }
     echo '</table></frameset>';
 }
-
+/**
+ * Display function to get today's transactions and display them
+ * @param string $page the calling page
+ */
 function displayToday($page) {
     echo '<frameset><legend>Details</legend>
         <table width="80%" border="1">
