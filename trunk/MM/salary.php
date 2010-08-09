@@ -1,26 +1,28 @@
 <?php
-session_start();
+include_once('localDB.php');
+include_once('loginchecker.php');
+include_once('functions.php');
 $day = date('d');
 $month = date('F');
 $numericMonth = date('m');
 $year = date('Y');
-$logged = $_SESSION['logged'];
-if ( $logged ) {
 ?>
 <fieldset>
 <legend><strong>Salary</strong></legend>
 <table>
-	<form method="post" action="">
+	<form method="post" action="home.php?page=salary&sent=true">
 		
 		<tr>
 			<td>Employee Name:</td>
 			<td>
-				<select>
+				<select name = "empname">
                         <option value="">Select</option>
-                        <option value="chain">Nimal</option>
-                        <option value="ring">Kamal</option>
-                        <option value="bangle">Sugath</option>
-                        <option value="bracelet">Bandara</option>
+                        <option value="Nimal">Nimal</option>
+                        <option value="Kamal">Kamal</option>
+                        <option value="Sugath">Sugath</option>
+                        <option value="Bandara">Bandara</option>
+                        <option value="Keerthi">Keerthi</option>
+                        <option value="Prabodha">Prabodha</option>
 				</select>
 			</td>
 		</tr>
@@ -106,6 +108,18 @@ if ( $logged ) {
 </table>
 </legend>
 </fieldset>
-<?php } else { ?>
-<p>You have not logged in. <a href="home.php?page=login">Click here to login again.</a></p>
-<?php } ?>
+
+<?php 
+if ( $_GET['sent'] == true ) {
+	$paidDate = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['date'];
+	$emp_id = "SELECT emp_id FROM employees WHERE name='{$_POST['empname']}'";
+	$emp_id = mysql_fetch_assoc(mysql_query($emp_id));
+	$emp_id = $emp_id['emp_id'];
+	$sql = "INSERT INTO salaries VALUES('','$emp_id','$paidDate','{$_POST['amount']}')";
+	$inserted = mysql_query($sql);
+	if ( $inserted ) {
+		echo '<p>Update successful</p>';
+	}
+}
+
+?>
