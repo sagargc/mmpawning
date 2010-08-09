@@ -115,45 +115,45 @@ function showStats($page) {
     $temp = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) FROM pawning WHERE date='$date' AND branch='medawachchiya'"));
     $data['medawachchiya']['trans'] = $temp['COUNT(*)'];
     
-    $gold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date'"));
+    $gold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date'"));
     
-    $data['total']['pawning'] = $gold['SUM(amount)'];
-    $data['total']['gold'] = $gold['SUM(weight)'];
+    $data['total']['pawning'] = $gold['pawns'];
+    $data['total']['gold'] = $gold['gold'];
     
-    $kekirawaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='kekirawa'"));
+    $kekirawaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='kekirawa'"));
     
-    $data['kekirawa']['pawning'] = $kekirawaGold['SUM(amount)'];
-    $data['kekirawa']['gold'] = $kekirawaGold['SUM(weight)'];
+    $data['kekirawa']['pawning'] = $kekirawaGold['pawns'];
+    $data['kekirawa']['gold'] = $kekirawaGold['gold'];
     
-    $anuMarketGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='anu_market'"));
+    $anuMarketGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='anu_market'"));
     
-    $data['anu_market']['pawning'] = $anuMarketGold['SUM(amount)'];
-    $data['anu_market']['gold'] = $anuMarketGold['SUM(weight)'];
+    $data['anu_market']['pawning'] = $anuMarketGold['pawns'];
+    $data['anu_market']['gold'] = $anuMarketGold['gold'];
     
-    $anuBusGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='anu_bus'"));
+    $anuBusGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='anu_bus'"));
     
-    $data['anu_bus']['pawning'] = $anuBusGold['SUM(amount)'];
-    $data['anu_bus']['gold'] = $anuBusGold['SUM(weight)'];
+    $data['anu_bus']['pawning'] = $anuBusGold['pawns'];
+    $data['anu_bus']['gold'] = $anuBusGold['gold'];
     
-    $mmGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='mm'"));
+    $mmGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='mm'"));
     
-    $data['mm']['pawning'] = $mmGold['SUM(amount)'];
-    $data['mm']['gold'] = $mmGold['SUM(weight)'];
+    $data['mm']['pawning'] = $mmGold['pawns'];
+    $data['mm']['gold'] = $mmGold['gold'];
     
-    $kurunegalaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='kurunegala'"));
+    $kurunegalaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='kurunegala'"));
     
-    $data['kurunegala']['pawning'] = $mmGold['SUM(amount)'];
-    $data['kurunegala']['gold'] = $mmGold['SUM(weight)'];
+    $data['kurunegala']['pawning'] = $mmGold['pawns'];
+    $data['kurunegala']['gold'] = $mmGold['gold'];
     
-    $wariyapolaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='wariyapola'"));
+    $wariyapolaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='wariyapola'"));
     
-    $data['wariyapola']['pawning'] = $wariyapolaGold['SUM(amount)'];
-    $data['wariyapola']['gold'] = $wariyapolaGold['SUM(weight)'];
+    $data['wariyapola']['pawning'] = $wariyapolaGold['pawns'];
+    $data['wariyapola']['gold'] = $wariyapolaGold['gold'];
     
-    $medawachchiyaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount),SUM(weight) FROM pawning WHERE date='$date' AND branch='medawachchiya'"));
+    $medawachchiyaGold = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS pawns,SUM(weight) AS gold FROM pawning WHERE date='$date' AND branch='medawachchiya'"));
     
-    $data['medawachchiya']['pawning'] = $medawachchiyaGold['SUM(amount)'];
-    $data['medawachchiya']['gold'] = $medawachchiyaGold['SUM(weight)'];
+    $data['medawachchiya']['pawning'] = $medawachchiyaGold['pawns'];
+    $data['medawachchiya']['gold'] = $medawachchiyaGold['gold'];
     
     /*$display = '<h3>Today\'s transactions</h3><br/><table border="0" width="80%">'
                 .'<tr><td>Total transactions</td><td>'.$pawnNumber['COUNT(*)'].'</td></tr>'
