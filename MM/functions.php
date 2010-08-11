@@ -170,4 +170,25 @@ function showStats($page) {
     //echo $data['total']['pawning'];
     return $data;
 }
+/**
+ * Function called by getEmp.php to get employee details (related to showEmp() ajax function)
+ * @param string $name name of the employee as returned by the HTML select
+ */
+function dispEmp($name) {
+	$empName = $name;
+	$thisMonth = date('Y-m');
+	$emp = mysql_fetch_assoc(mysql_query("SELECT emp_id,total_salary FROM employees WHERE name='$empName'"));
+	echo '<p>Employee Total Salary: '.$emp['total_salary'].'</p>';
+	echo '<table width="80%" border="0" style="text-align:center"><tr><th>Payment</th><th>Date</th></tr>';
+	$payments = mysql_query("SELECT * FROM salaries WHERE emp_id='{$emp['emp_id']}'");
+	$num = mysql_num_rows($payments);
+	for ( $i = 0; $i < $num; $i++ ) {
+		$date = mysql_result($payments,$i,"date");
+		$month = substr($date,0,7);
+		if ( $month == $thisMonth ) {
+			echo '<tr><td>Rs. '.mysql_result($payments,$i,"amount").'</td><td>'.$date.'</td></tr>';
+		}
+	}
+	echo '</table>';
+}
 ?>
