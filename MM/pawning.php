@@ -180,6 +180,10 @@ if($dataSubmitted == "yes") {
         $cus_refInsert = "INSERT INTO customer_ref(cus_id,ref_no) "
         ."VALUES('{$_POST['id']}','{$_POST['ref_no']}');";
         $referenceResult = mysql_query($cus_refInsert);
+        
+        $goldInsert = "INSERT INTO gold(ref_no,type,weight,status) "
+        ."VALUES('{$_POST['id']}','{$_POST['type']}','{$_POST['weight']}','pawned');";
+        $goldResult = mysql_query($goldInsert);
         if ( ($pawningResult && $cusResult && $referenceResult) != null ) {
                 echo '<p>Data entered successfully</p>';
         }
