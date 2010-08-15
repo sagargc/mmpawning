@@ -1,15 +1,12 @@
 <?php
-//session_start();
 include_once('loginchecker.php');
 include_once('localDB.php');
-//include_once('loginchecker.php');
 include_once('functions.php');
 $day = date('d');
 $month = date('F');
 $numericMonth = date('m');
 $year = date('Y');
-//$logged = $_SESSION['logged'];
-//if ( $logged ) {
+
 ?>
 
 <script type="text/javascript">

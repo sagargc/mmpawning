@@ -30,7 +30,7 @@ xmlhttp.onreadystatechange=function()
     document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
     }
   }
-xmlhttp.open("GET","getEmp.php?name="+str,true);
+xmlhttp.open("GET","router.php?do=getemp&name="+str,true);
 xmlhttp.send();
 }
 </script>
@@ -127,7 +127,7 @@ xmlhttp.send();
 	</tr>
 	</form>
 </table>
-<div id="txtHint"><b>Employee Salary Details for this month.</b></div>
+<div id="txtHint"><b>Employee Salary Details for this month will appear here.</b></div>
 </legend></fieldset>
 
 <?php
