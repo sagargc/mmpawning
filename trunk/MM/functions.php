@@ -191,4 +191,32 @@ function dispEmp($name) {
 	}
 	echo '</table>';
 }
+
+/**
+ * Function called by getRefs.php to get REF_NO details (related to shoRefs() ajax function)
+ * @param string $name name of the customer
+ */
+function dispRefs($name) {
+	$cusId = mysql_fetch_assoc(mysql_query("SELECT cus_id FROM customer_details WHERE name='$name'"));
+	$cusId = $cusId['cus_id'];
+	$refs = mysql_query("SELECT ref_no FROM customer_ref WHERE cus_id='$cusId'");
+	$num = mysql_num_rows($refs);
+	echo '<select name="ref_no" onchange="showTrans(this.value)"><option value="">Select Bill</option>';
+	for ( $i = 0; $i < $num; $i++ ) {
+		$id = mysql_result($refs, $i, "ref_no");
+		echo '<option value="'.$id.'">'.$id.'</option>';
+	}
+	echo '</select>';
+	echo '<div id="detail">Transaction details</div>';
+}
+
+function dispSingle($id) {
+	$details = mysql_fetch_assoc(mysql_query("SELECT * FROM pawning WHERE ref_no='$id'"));
+	echo '<table width="70%" border="0">';
+	echo '<tr><td>Type</td><td>'.$details['type'].'</td></tr>'
+		.'<tr><td>Weight</td><td>'.$details['weight'].'</td></tr>'
+		.'<tr><td>Amount</td><td>'.$details['amount'].'</td></tr>'
+		.'<tr><td>Date</td><td>'.$details['date'].'</td></tr>';
+	echo '</table>';
+}
 ?>
