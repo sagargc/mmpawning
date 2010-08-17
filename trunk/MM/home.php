@@ -79,8 +79,7 @@ $logged = $_SESSION['logged'];
 						include("search.php");
 					} else if( $pageName == "view" ) {
 						include("view_trans.php");
-					}
-                                        else if( $pageName == "branch" ) {
+					} else if( $pageName == "branch" ) {
 						include("branch.php");
 					}
 					
