@@ -6,7 +6,7 @@ $logged = $_SESSION['logged'];
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon"" type="image/png"  href="images/favicon(2).ico" />
-<title>Management Information System</title>
+<title>MM Pawning - Accounts Management System</title>
 <link href="default.css" rel="stylesheet" type="text/css" />
 </head>
 <body>

@@ -72,7 +72,7 @@ function validateform(form)
 			<option value="Chain">Chain</option>
 			<option value="Ring">Ring</option>
 			<option value="Bangle">Bangle</option>
-			<option value="Bracelet">bracelet</option>
+			<option value="Bracelet">Bracelet</option>
 		</select></td>
 	</tr>
 	<tr>
