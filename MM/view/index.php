@@ -50,7 +50,8 @@ $logged = $_SESSION['isAdmin']; ?>
 				
 				<?php 
 					$pages = array( 'login' => 'login.php',
-									'cashbook' => 'cashbook.php' );
+									'cashbook' => 'cashbook.php',
+									'logout' => 'logout.php' );
 					$pageName = $_GET['page'];
 					midiInclude($pageName, $pages );
 				?>

@@ -4,6 +4,7 @@ $month = date('F');
 $numericMonth = date('m');
 $year = date('Y');
 include_once('loginchecker.php');
+include_once('branch_checker.php');
 include_once('localDB.php');
 include_once('functions.php');
 $branch = $_SESSION['branch'];
