@@ -55,6 +55,7 @@ div#tcal td {
 	font-size: 11px;
 	width: 22px;
 	cursor: pointer;
+	color: black;
 }
 /* date highlight
    in case of conflicting settings order here determines the priority from least to most important */

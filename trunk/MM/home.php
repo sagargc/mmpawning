@@ -1,5 +1,6 @@
 <?php session_start();
 $logged = $_SESSION['logged'];
+include_once('functions.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -48,40 +49,27 @@ $logged = $_SESSION['logged'];
 		<div class="boxed orange">
 			<div id="form">
 				<?php
+					$pages = array ( 'pawning' => 'pawning.php',
+									 'redeems' => 'redeem.php',
+									 'sinna' => 'sinna.php',
+									 'salary' => 'salary.php',
+									 'expences' => 'expences.php',
+									 'other' => 'other.php',
+									 'login' => 'login.php',
+									 'logout' => 'logout.php',
+									 'mm' => 'mm.php',
+									 'withdraw' => 'withdraw.php',
+									 'deposit' => 'deposit.php',
+									 'branch' => 'branch.php',
+									 'search' => 'search.php',
+									 'view' => 'view_trans.php',
+									 'branch' => 'branch.php' );
 					$pageName = $_GET['page'];
-					if( $pageName == "pawning" ) {
-						include("pawning.php");
-					} else if( $pageName == "redeems" ) {
-						include("redeem.php");
-					} else if( $pageName == "sinna" ) {
-						include("sinna.php");
-					} else if( $pageName == "salary" ) {
-						include("salary.php");
-					} else if( $pageName == "expences" ) {
-						include("expences.php");
-					} else if( $pageName == "other" ) {
-						include("other.php");
-					} else if( $pageName == "home" ) {
+					midiInclude($pageName, $pages);
+					if( $pageName == "home" ) {
 						print 'Welcome to MM Pawning Control Center';
-					} else if( $pageName == "login" ) {
-						include("login.php");
-					} else if( $pageName == "logout" ) {
-						include("logout.php");
-					}else if( $pageName == "mm" ) {
-						include("mm.php");
-					}else if( $pageName == "withdraw" ) {
-						include("withdraw.php");
-					}else if( $pageName == "deposit" ) {
-						include("deposit.php");
-					} else if( $pageName == "branch" ) {
-						include("branch.php");
-					} else if( $pageName == "search" ) {
-						include("search.php");
-					} else if( $pageName == "view" ) {
-						include("view_trans.php");
-					} else if( $pageName == "branch" ) {
-						include("branch.php");
 					}
+				
 					
 				?>
 			</div><!--close form-->	
