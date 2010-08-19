@@ -73,7 +73,7 @@ $data = showStats('view');
 display('view');
 if ( $_GET['func'] == 'delete' ) {
 	$id = $_GET['ref'];
-	$deleted = deleteRecord($id);
+	$deleted = deleteRecord($id, 'view');
 	if ( $deleted ) {
 		echo '<p>Item deleted successfully.</p>';
 	}
