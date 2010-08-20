@@ -63,7 +63,7 @@ xmlhttp.send();
 }
 </script>
 
-<fieldset><legend><strong>Redeem</strong></legend>
+<fieldset><legend><strong>Redeem To <?php echo $_SESSION['branch'] ?> Branch</strong></legend>
 <table>
 	<form method="post" action="home.php?page=redeems&amp;submitted=true" name="redeemForm">
 
@@ -119,7 +119,13 @@ if ( $_GET['submitted'] ) {
     	$goldDelete = "DELETE FROM gold WHERE ref_no='$ref'";
     	$goldResult = mysql_query($goldDelete);
     }
-    if ( $redeemResult ) {
+	
+	$cashResult = mysql_query("SELECT cash FROM hand_cash WHERE branch='{$_SESSION['branch']}'");
+	$cash = mysql_fetch_array($cashResult);
+	$updatedCash = ($cash['cash'] + $_POST['amount']);
+	$cashUpdate = mysql_query("UPDATE hand_cash SET cash='$updatedCash' WHERE branch='{$_SESSION['branch']}'"); 
+	
+    if ( $redeemResult && $cashUpdate != null) {
     	echo '<p>Redeem entered successfully</p>';
     }
     displayToday('redeem');

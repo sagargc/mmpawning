@@ -10,7 +10,7 @@ $day = date('Y-m-d');
 ?>
 <script language="JavaScript" src="calendar/calendar_db.js"></script>
 <link rel="stylesheet" href="calendar/calendar.css">
-<fieldset><legend><strong>Pawning</strong></legend>
+<fieldset><legend><strong>Pawning To <?php echo $_SESSION['branch'] ?> Branch</strong></legend>
 <table>
 
 
@@ -80,16 +80,8 @@ $day = date('Y-m-d');
 <?php
 showStats('pawning');
 $dataSubmitted = $_GET['submitted'];
-
-
-
 if( $dataSubmitted == "yes" ) {
-	$customerCheck = mysql_fetch_assoc(mysql_query("SELECT name FROM customer_details WHERE cus_id='{$_POST['id']}'"));
-
-	
-	//include_once('localDB.php');
-	
-
+		//include_once('localDB.php');
 	$genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch) "
 	."VALUES('{$_POST['ref_no']}','{$_POST['amount']}','{$_POST['date']}','{$_POST['type']}','{$_POST['weight']}','{$_SESSION['branch']}');";
 	$pawningResult = mysql_query($genericInsert);
@@ -106,7 +98,15 @@ if( $dataSubmitted == "yes" ) {
 	$goldInsert = "INSERT INTO gold(ref_no,type,weight,status) "
 	."VALUES('{$_POST['ref_no']}','{$_POST['type']}','{$_POST['weight']}','pawned');";
 	$goldResult = mysql_query($goldInsert);
-	if ( ($pawningResult && $referenceResult) != null ) {
+	
+	
+	$cashResult = mysql_query("SELECT cash FROM hand_cash WHERE branch='{$_SESSION['branch']}'");
+	$cash = mysql_fetch_array($cashResult);
+	$updatedCash = ($cash['cash'] - $_POST['amount']);
+	$cashUpdate = mysql_query("UPDATE hand_cash SET cash='$updatedCash' WHERE branch='{$_SESSION['branch']}'"); 
+	
+	
+	if ( ($pawningResult && $referenceResult && $cashUpdate) != null ) {
 		echo '<p>Data entered successfully</p>';
 	}
 	else {

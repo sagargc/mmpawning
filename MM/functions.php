@@ -135,46 +135,50 @@ function displayToday($page) {
 		}
 		echo '</table></frameset>';
 	}
-
-	if( $page == withdraw ){
-		echo '<frameset><legend>Details</legend>
-        <table width="80%" border="1">
-	<tr>
-        <th>No</th>
-		<th>Source</th>
-		<th>Amount</th>
-		<th>Description</th>
-		<th>Date</th>
-	</tr>';
-		$branch = $_SESSION['branch'];
-		$today = date('Y-m-d');
-		$viewQ = "SELECT * FROM withdrawals WHERE date='$today'";
-		$view = mysql_query($viewQ);
-		$num = mysql_num_rows($view);
-		$no=1;
-		for ( $i = 0; $i < $num; $i++ ) {
-			//$ref = mysql_result($view,$i,'ref_no');
-			echo '<tr><td>'.$no++.'</td>'.
-                 '<td>'.$ref.'</td>'.
-		 '<td>'.mysql_result($view,$i,'trans_id').'</td>'.
-		 '<td>'.mysql_result($view,$i,'source').'</td>'.
-		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
-		 '<td>'.mysql_result($view,$i,'description').'</td>'.
-		 '<td>'.mysql_result($view,$i,'date').'</td>'.
-		 '<td style="text-align:center"><a href="home.php?page='.$page.'&func=delete&ref='.$ref.'"><img src="images/b_drop.png" /></a></td></tr>';
-		}
-		echo '</table></frameset>';
-	}
-
-	if( $page == expenses ){
+	
+	if( $page == redeem ){
 		echo '<frameset><legend>Details</legend>
         <table width="80%" border="1">
 	<tr>
         <th>ID</th>
-		<th>Branch</th>
+		<th>Bill no</th>
+		<th>Redeem ID</th>
 		<th>Date</th>
-		<th>Discription</th>
 		<th>Amount</th>
+		<th>Interest</th>
+		<th>branch</th>
+		<th>Delete</th>
+	</tr>';
+		$branch = $_SESSION['branch'];
+		$today = date('Y-m-d');
+		$viewQ = "SELECT * FROM redeem WHERE date='$today' AND branch='$branch'";
+		$view = mysql_query($viewQ);
+		$num = mysql_num_rows($view);
+		$no=1;
+		for ( $i = 0; $i < $num; $i++ ) {
+			$ref = mysql_result($view,$i,'ref_no');
+			echo '<tr><td>'.$no++.'</td>'.
+                 '<td>'.$ref.'</td>'.
+		 '<td>'.mysql_result($view,$i,'redeem_id').'</td>'.
+		 '<td>'.mysql_result($view,$i,'date').'</td>'.
+		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
+		 '<td>'.mysql_result($view,$i,'interest_gained').'</td>'.
+		 '<td>'.mysql_result($view,$i,'branch').'</td>'.
+		 '<td style="text-align:center"><a href="home.php?page='.$page.'&func=delete&ref='.$ref.'"><img src="images/b_drop.png" /></a></td></tr>';
+		}
+		echo '</table></frameset>';
+	}
+	
+	if( $page == expenses ){
+		echo '<frameset><legend>Details</legend>
+        <table width="80%" border="1">
+	<tr>
+		<th>No</th>
+        <th>ID</th>
+		<th>Amount</th>
+		<th>Description</th>
+		<th>Date</th>
+		<th>branch</th>
 		<th>Delete</th>
 	</tr>';
 		$branch = $_SESSION['branch'];
@@ -184,12 +188,73 @@ function displayToday($page) {
 		$num = mysql_num_rows($view);
 		$no=1;
 		for ( $i = 0; $i < $num; $i++ ) {
-			//$ref = mysql_result($view,$i,'ref_no');
-			echo '<tr>
-		  <td>'.mysql_result($view,$i,'ex_id').'</td>'.
-		 '<td>'.mysql_result($view,$i,'branch').'</td>'.
-		 '<td>'.mysql_result($view,$i,'date').'</td>'.
+			$ref = mysql_result($view,$i,'ex_id');
+			echo '<tr><td>'.$no++.'</td>'.
+                 '<td>'.$ref.'</td>'.
+		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
 		 '<td>'.mysql_result($view,$i,'discription').'</td>'.
+		 '<td>'.mysql_result($view,$i,'date').'</td>'.
+		 '<td>'.mysql_result($view,$i,'branch').'</td>'.
+		 '<td style="text-align:center"><a href="home.php?page='.$page.'&func=delete&ref='.$ref.'"><img src="images/b_drop.png" /></a></td></tr>';
+		}
+		echo '</table></frameset>';
+	}
+	
+	if( $page == withdraw ){
+		echo '<frameset><legend>Details</legend>
+        <table width="80%" border="1">
+	<tr>
+		<th>No</th>
+		<th>Source</th>
+		<th>Amount</th>
+		<th>Description</th>
+		<th>Date</th>
+		<th>Delete</th>
+	</tr>';
+		$branch = $_SESSION['branch'];
+		$today = date('Y-m-d');
+		$viewQ = "SELECT * FROM withdrawals WHERE date='$today'";
+		$view = mysql_query($viewQ);
+		$num = mysql_num_rows($view);
+		$no=1;
+		for ( $i = 0; $i < $num; $i++ ) {
+			//$ref = mysql_result($view,$i,'ex_id');
+			echo '<tr><td>'.$no++.'</td>'.
+                 //'<td>'.$ref.'</td>'.
+		 '<td>'.mysql_result($view,$i,'source').'</td>'.
+		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
+		 '<td>'.mysql_result($view,$i,'description').'</td>'.
+		 '<td>'.mysql_result($view,$i,'date').'</td>'.
+		 '<td style="text-align:center"><a href="home.php?page='.$page.'&func=delete&ref='.$ref.'"><img src="images/b_drop.png" /></a></td></tr>';
+		}
+		echo '</table></frameset>';
+	}
+
+	if( $page == deposit ){
+		echo '<frameset><legend>Details</legend>
+        <table width="80%" border="1">
+	<tr>
+		<th>No</th>
+		<th>Source</th>
+		<th>Amount</th>
+		<th>Description</th>
+		<th>Date</th>
+		<th>Delete</th>
+	</tr>';
+		$branch = $_SESSION['branch'];
+		$today = date('Y-m-d');
+		$viewQ = "SELECT * FROM deposit WHERE date='$today'";
+		$view = mysql_query($viewQ);
+		$num = mysql_num_rows($view);
+		$no=1;
+		for ( $i = 0; $i < $num; $i++ ) {
+			//$ref = mysql_result($view,$i,'ex_id');
+			echo '<tr><td>'.$no++.'</td>'.
+                 //'<td>'.$ref.'</td>'.
+		 '<td>'.mysql_result($view,$i,'source').'</td>'.
+		 '<td>'.mysql_result($view,$i,'amount').'</td>'.
+		 '<td>'.mysql_result($view,$i,'discription').'</td>'.
+		 '<td>'.mysql_result($view,$i,'date').'</td>'.
 		 '<td style="text-align:center"><a href="home.php?page='.$page.'&func=delete&ref='.$ref.'"><img src="images/b_drop.png" /></a></td></tr>';
 		}
 		echo '</table></frameset>';
