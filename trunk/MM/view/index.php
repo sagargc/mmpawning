@@ -31,6 +31,7 @@ $logged = $_SESSION['isAdmin']; ?>
 						echo '<li><a href="index.php?page=logout">Logout</a></li>';
 					} ?>
 					<li><a href="index.php?page=cashbook">Cashbook</a></li>
+					<li><a href="index.php?page=branchsummary">Monthly branch summary</a></li>
 				</ul>
 			</div>
 			<!-- / navigation -->
@@ -51,7 +52,8 @@ $logged = $_SESSION['isAdmin']; ?>
 				<?php 
 					$pages = array( 'login' => 'login.php',
 									'cashbook' => 'cashbook.php',
-									'logout' => 'logout.php' );
+									'logout' => 'logout.php',
+									'branchsummary' => 'branch_summary.php' );
 					$pageName = $_GET['page'];
 					midiInclude($pageName, $pages );
 				?>

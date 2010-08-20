@@ -66,14 +66,18 @@ $dataSubmitted = $_GET['submitted'];
 if($dataSubmitted == "yes") {
         displayToday('expenses');
         include_once('localDB.php');
-        
-
+		
         $genericInsert = "INSERT INTO expenses(discription,ex_id,branch,date,amount) "
         ."VALUES('{$_POST['dis']}','','{$_POST['branch']}','{$_POST['date']}','{$_POST['amount']}');";
         $exResult = mysql_query($genericInsert);
+		
+		$cashResult = mysql_query("SELECT cash FROM hand_cash WHERE branch='{$_POST['branch']}'");
+		$cash = mysql_fetch_array($cashResult);
+		$updatedCash = ($cash['cash'] - $_POST['amount']);
+		$cashUpdate = mysql_query("UPDATE hand_cash SET cash='$updatedCash' WHERE branch='{$_POST['branch']}'"); 
 
         
-        if ( ($exResult) != null ) {
+        if ( $exResult && $cashUpdate != null ) {
                 echo '<p>Data entered successfully</p>';
         }
         else {

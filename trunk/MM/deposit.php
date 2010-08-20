@@ -4,22 +4,25 @@ include_once('loginchecker.php');
 //include_once('branch_checker.php');
 include_once('localDB.php');
 include_once('functions.php');
-$day = date('Y-m-d');
+$day = date('d');
+$month = date('F');
+$numericMonth = date('m');
+$year = date('Y');
 
 ?>
-
-<fieldset>
-<legend><strong>Deposits</strong></legend>
-<table>
 <script language="JavaScript" src="calendar/calendar_db.js"></script>
 <link rel="stylesheet" href="calendar/calendar.css">
+<fieldset>
+<legend><strong>Withdrawals</strong></legend>
+<table>
+
 
 	<form method="POST" action="home.php?page=deposit&submitted=yes"
 		name="myform">
 	
 	
 	<tr>
-		<td>Source Of Income:</td>
+		<td>Incomming Source:</td>
 		<td><select name="type">
 			<option value="sampath_bank">Sampath Bank</option>
 			<option value="anu_market">Anuradapura Market</option>
@@ -34,7 +37,7 @@ $day = date('Y-m-d');
 	</tr>
 	<tr>
 		<td>Amount:</td>
-		<td><input type="text" size="30" maxlength="50" name="amount"></td>
+		<td><input type="text" size="30" maxlength="50" name="Amount"></td>
 	</tr>
 	<tr>
 		<td>Discription:</td>
@@ -42,7 +45,7 @@ $day = date('Y-m-d');
 
 	</tr>
 	<tr><td>Enter Date:</td>
-		<td><input type="text" name="date" value="<?php echo $day;?>" />
+		<td><input type="text" name="date" />
 		<script language="JavaScript">
 		new tcal ({
 			// form name
@@ -63,7 +66,6 @@ $day = date('Y-m-d');
 	</form>
 </table>
 </legend></fieldset>
-
 <?php
 showStats('deposit');
 $dataSubmitted = $_GET['submitted'];
@@ -75,9 +77,9 @@ if($dataSubmitted == "yes") {
 
         $genericInsert = "INSERT INTO deposit(trans_id,source,amount,discription,date) "
         ."VALUES('','{$_POST['type']}','{$_POST['amount']}','{$_POST['description']}','{$_POST['date']}');";
-        $withdrawResult = mysql_query($genericInsert);
+        $depositResult = mysql_query($genericInsert);
 
-        if ( ($withdrawResult) != null ) {
+        if ( ($depositResult) != null ) {
                 echo '<p>Data entered successfully</p>';
         }
         else {
@@ -95,5 +97,3 @@ if ( $_GET['func'] == 'delete' ) {
 }
 
 ?>
-
-
