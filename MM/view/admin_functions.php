@@ -8,6 +8,10 @@ function midiInclude($name, $namesAndPages) {
 	include($namesAndPages[$name]);
 }
 
+/**
+ * Function to generate the cashbook for a certain date
+ * @param string $date the date for which the cashbook should be generated
+ */
 function getCashbook($date) {
 	//declaration section
 	$data = array();
@@ -135,6 +139,12 @@ function getCashbook($date) {
 	echo '</table></center>';
 }
 
+/**
+ * Function to get a summary of certain month for a certain branch
+ * @param string $branch 
+ * @param string $month
+ * @param string $year
+ */
 function getSummary($branch, $month, $year) {
 	$data = array();
 	$data['pawning'] = array();
@@ -176,14 +186,48 @@ function getSummary($branch, $month, $year) {
 			$salariesPaid = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) as salary FROM salaries WHERE date='$queryDate'"));
 			$salarySum = $salarySum + $salariesPaid['salary'];
 		}
-		echo $pawns['pawnSum'];
-		
+		//echo $pawns['pawnSum'];
 		$data['pawning'][$i] = $pawns['pawnSum'];
 		$data['income'][$i] = $redeems['redeems'];
 		$data['interest'][$i] = $redeems['interest'];
 		$data['expenses'][$i] = $expenses['expense'];
 		$data['salary'][$i] = $salarySum;
+		
+		if ( $data['pawning'][$i] == '' ) {
+			$data['pawning'][$i] = 0;
+		}
+		if ( $data['income'][$i] == '' ) {
+			$data['income'][$i] = 0;
+		}
+		if ( $data['interest'][$i] == '' ) {
+			$data['interest'][$i] = 0;
+		}
+		if ( $data['expenses'][$i] == '' ) {
+			$data['expenses'][$i] = 0;
+		}
 	}
 	return $data;
+}
+
+function getExpenses($branch, $year, $month) {
+	$expenses = array();
+	$requiredMonth = $year.'-'.$month;
+	$exDb = mysql_query("SELECT * FROM expenses WHERE branch='$branch'");
+	$num = mysql_num_rows($exDb);
+	$total = 0;
+	for ( $i = 0; $i < $num; $i++ ) {
+		$expenses[$i] = array();
+		$date = mysql_result($exDb,$i,"date");
+		$month = substr($date,0,7);
+		if ( $month == $requiredMonth ) {
+			$expenses[$i]['description'] = mysql_result($exDb, $i, "discription");
+			$expenses[$i]['date'] = mysql_result($exDb, $i, "date");
+			$expenses[$i]['amount'] = mysql_result($exDb, $i, "amount");
+			$total = $total + (int)mysql_result($exDb, $i, "amount");
+		}
+	}
+	$expenses['total'] = $total;
+	$expenses['count'] = $num;
+	return $expenses;
 }
 ?>

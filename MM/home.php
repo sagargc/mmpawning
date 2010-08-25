@@ -20,7 +20,7 @@ include_once('functions.php');
 		<!-- end header -->
 		<div id="menu">
 				<ul>
-					<li class="first"><a href="home.php?page=home">Home</a></li>
+					<li class="first"><a href="home.php">Home</a></li>
 					<?php 
 					//
 					if ( !$logged ) {
@@ -65,9 +65,12 @@ include_once('functions.php');
 									 'view' => 'view_trans.php',
 									 'branch' => 'branch.php' );
 					$pageName = $_GET['page'];
-					midiInclude($pageName, $pages);
-					if( $pageName == "home" ) {
-						print 'Welcome to MM Pawning Control Center';
+					
+					if( $pageName != "" ) {
+						midiInclude($pageName, $pages);
+					}
+					else {
+						print '<h4>Welcome to MM Pawning Control Center</h4>';
 					}
 				
 					
