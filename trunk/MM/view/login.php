@@ -63,7 +63,7 @@ if($loginAttempt==true) {
 			//check password hashing input using md5() function
 			if( $passwrd == md5($pass) ) {
 				echo '<p> Welcome to the Accounts Management System</p>';
-				echo '<p>Choose the <a href="home.php?page=branch"><strong>Branch</strong></a></p>';
+				//echo '<p>Choose the <a href="home.php?page=branch"><strong>Branch</strong></a></p>';
 				$_SESSION['logged'] = true;
 				$_SESSION['username'] = $usr;
 				//if user is admin, set session variable

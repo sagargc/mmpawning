@@ -1,6 +1,7 @@
 <?php session_start(); 
 include_once('admin_functions.php');
-$logged = $_SESSION['isAdmin']; ?>
+$logged = $_SESSION['isAdmin']; 
+error_reporting(E_ERROR | E_PARSE);?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -31,7 +32,9 @@ $logged = $_SESSION['isAdmin']; ?>
 						echo '<li><a href="index.php?page=logout">Logout</a></li>';
 					} ?>
 					<li><a href="index.php?page=cashbook">Cashbook</a></li>
-					<li><a href="index.php?page=branchsummary">Monthly branch summary</a></li>
+					<li><a href="index.php?page=branchsummary">Monthly summary</a></li>
+					<li><a href="index.php?page=expenses">Expenses</a></li>
+					<li><a href="index.php?page=newEmp">Add Employee</a></li>
 				</ul>
 			</div>
 			<!-- / navigation -->
@@ -53,13 +56,15 @@ $logged = $_SESSION['isAdmin']; ?>
 					$pages = array( 'login' => 'login.php',
 									'cashbook' => 'cashbook.php',
 									'logout' => 'logout.php',
-									'branchsummary' => 'branch_summary.php' );
+									'branchsummary' => 'branch_summary.php',
+									'expenses' => 'expense_view.php', 
+									'newEmp' => 'newEmp.php');
 					$pageName = $_GET['page'];
-					midiInclude($pageName, $pages );
+					if ( $pageName != '' ) {
+						midiInclude($pageName, $pages );
+					}
+				 
 				?>
-				
-				
-				
 			</div>
 			<!-- / main content -->
 			
