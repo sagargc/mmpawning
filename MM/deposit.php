@@ -4,25 +4,21 @@ include_once('loginchecker.php');
 //include_once('branch_checker.php');
 include_once('localDB.php');
 include_once('functions.php');
-$day = date('d');
-$month = date('F');
-$numericMonth = date('m');
-$year = date('Y');
-
 ?>
 <script language="JavaScript" src="calendar/calendar_db.js"></script>
 <link rel="stylesheet" href="calendar/calendar.css">
 <fieldset>
-<legend><strong>Withdrawals</strong></legend>
+<legend><strong>Deposits</strong></legend>
+<form method="POST" action="home.php?page=deposit&submitted=true"
+		name="myform">
 <table>
 
 
-	<form method="POST" action="home.php?page=deposit&submitted=yes"
-		name="myform">
+	
 	
 	
 	<tr>
-		<td>Incomming Source:</td>
+		<td>Outgoing Source:</td>
 		<td><select name="type">
 			<option value="sampath_bank">Sampath Bank</option>
 			<option value="anu_market">Anuradapura Market</option>
@@ -37,14 +33,14 @@ $year = date('Y');
 	</tr>
 	<tr>
 		<td>Amount:</td>
-		<td><input type="text" size="30" maxlength="50" name="Amount"></td>
+		<td><input type="text" size="30" maxlength="50" name="amount"></td>
 	</tr>
 	<tr>
 		<td>Discription:</td>
 		<td><textarea name="description" rows="5"></textarea></td>
 
 	</tr>
-	<tr><td>Enter Date:</td>
+	<tr><td>Transaction Date:</td>
 		<td><input type="text" name="date" />
 		<script language="JavaScript">
 		new tcal ({
@@ -59,32 +55,28 @@ $year = date('Y');
 	<tr>
 		<td></td>
 		<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<INPUT
-			type="submit" name="button" value="Update" /></td>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<INPUT type="submit" name="button" value="Enter" style="padding:4px" /></td>
 	</tr>
 
-	</form>
+	
 </table>
+</form>
 </legend></fieldset>
 <?php
-showStats('deposit');
-$dataSubmitted = $_GET['submitted'];
-if($dataSubmitted == "yes") {
+$today = date('Y-m-d');
+if( $_GET['submitted'] ) {
+	$genericInsert = "INSERT INTO deposit(trans_id,source,amount,discription,date,entryDate) "
+	        		."VALUES('','{$_POST['type']}','{$_POST['amount']}','{$_POST['description']}','{$_POST['date']}','$today');";
+    $depositResult = mysql_query($genericInsert);
 
-        displayToday('deposit');
-        //include_once('localDB.php');
-        
-
-        $genericInsert = "INSERT INTO deposit(trans_id,source,amount,discription,date) "
-        ."VALUES('','{$_POST['type']}','{$_POST['amount']}','{$_POST['description']}','{$_POST['date']}');";
-        $depositResult = mysql_query($genericInsert);
-
-        if ( ($depositResult) != null ) {
-                echo '<p>Data entered successfully</p>';
-        }
-        else {
-                echo '<p>Failed to enter data</p>';
-        }
+    if ( ($depositResult) != null ) {
+    	echo '<p>Data entered successfully</p>';
+    }
+    else {
+        echo '<p>Failed to enter data</p>';
+    }
+    displayToday('deposit');
 
 }
 if ( $_GET['func'] == 'delete' ) {

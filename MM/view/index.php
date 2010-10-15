@@ -34,7 +34,9 @@ error_reporting(E_ERROR | E_PARSE);?>
 					<li><a href="index.php?page=cashbook">Cashbook</a></li>
 					<li><a href="index.php?page=branchsummary">Monthly summary</a></li>
 					<li><a href="index.php?page=expenses">Expenses</a></li>
+					<li><a href="index.php?page=view">View</a></li>
 					<li><a href="index.php?page=newEmp">Add Employee</a></li>
+					<li><a href="index.php?page=newUser">Add User</a></li>
 				</ul>
 			</div>
 			<!-- / navigation -->
@@ -58,7 +60,9 @@ error_reporting(E_ERROR | E_PARSE);?>
 									'logout' => 'logout.php',
 									'branchsummary' => 'branch_summary.php',
 									'expenses' => 'expense_view.php', 
-									'newEmp' => 'newEmp.php');
+									'newEmp' => 'newEmp.php',
+									'newUser' => 'add_user.php',
+									'view' => 'viewAndDelete.php');
 					$pageName = $_GET['page'];
 					if ( $pageName != '' ) {
 						midiInclude($pageName, $pages );

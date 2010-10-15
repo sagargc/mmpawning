@@ -38,6 +38,7 @@ xmlhttp.send();
 }
 function showTrans(str)
 {
+var branch = "<?php echo $_SESSION['branch']; ?>";
 if (str=="")
   {
   document.getElementById("detail").innerHTML="";
@@ -58,7 +59,7 @@ xmlhttp.onreadystatechange=function()
     document.getElementById("detail").innerHTML=xmlhttp.responseText;
     }
   }
-xmlhttp.open("GET","router.php?do=getdetails&name="+str,true);
+xmlhttp.open("GET","router.php?do=getdetails&name="+str+"&branch="+branch,true);
 xmlhttp.send();
 }
 </script>
@@ -68,17 +69,17 @@ xmlhttp.send();
 	<form method="post" action="home.php?page=redeems&amp;submitted=true" name="redeemForm">
 
 	<tr>
-		<td>Customer Name:</td>
-		<td><input type="text" name="name" onclick="getRef(this.value)" />
+		<td>Bill Number:</td>
+		<td><input type="text" name="name" onclick="showTrans(this.value)" />
 		</select></td>
 	</tr>
 	<tr>
-		<td>Bill:</td>
-		<td><div id="refs"></div></td>
+		<td>Bill :</td>
+		<td><div id="detail"></div></td>
 	</tr>
 
 	<tr>
-		<td>Total Amount:</td>
+		<td>Redeem amount:</td>
 		<td><input type="text" size="20" maxlength="50" name="amount"></td>
 	</tr>
 	<tr>
@@ -100,18 +101,20 @@ xmlhttp.send();
 		<td></td>
 		<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<INPUT
-			type="submit" name="button" value="Update" /></td>
+			type="submit" name="button" value="Save" /></td>
 	</tr>
 	</form>
 </table>
+<p>Help: Type in a Bill Number in the correct field and click on it. <br/> </p>
 </fieldset>
 
 <?php 
 if ( $_GET['submitted'] ) {
 	$ref = $_SESSION['ref_no'];
+	$today = date('Y-m-d');
 	
-	$genericInsert = "INSERT INTO redeem(redeem_id,ref_no,date,amount,interest_gained,branch) "
-        ."VALUES('','$ref','{$_POST['date']}','{$_POST['amount']}','{$_POST['interest']}','{$_SESSION['branch']}');";
+	$genericInsert = "INSERT INTO redeem(redeem_id,ref_no,date,amount,interest_gained,branch,entryDate) "
+        ."VALUES('','$ref','{$_POST['date']}','{$_POST['amount']}','{$_POST['interest']}','{$_SESSION['branch']}','$today');";
     $redeemResult = mysql_query($genericInsert);
     $redeemTotal = mysql_fetch_assoc(mysql_query("SELECT SUM(amount) AS total FROM redeem WHERE ref_no='$ref'"));
     $pawnedAmount = mysql_fetch_assoc(mysql_query("SELECT amount FROM pawning WHERE ref_no='$ref'"));
@@ -128,7 +131,7 @@ if ( $_GET['submitted'] ) {
     if ( $redeemResult && $cashUpdate != null) {
     	echo '<p>Redeem entered successfully</p>';
     }
-    displayToday('redeem');
+    displayToday('redeems');
 }
 if ( $_GET['func'] == 'delete' ) {
 	$id = $_GET['ref'];
@@ -136,6 +139,6 @@ if ( $_GET['func'] == 'delete' ) {
 	if ( $deleted ) {
 		echo '<p>Item deleted successfully.</p>';
 	}
-	displayToday('redeem');
+	displayToday('redeems');
 }
 ?>

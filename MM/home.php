@@ -38,6 +38,7 @@ include_once('functions.php');
                     <li><a href="home.php?page=branch">Change Branch</a></li>
 					<li><a href="home.php?page=view">View data</a></li>
 					<li><a href="home.php?page=search">Search</a></li>
+					<li><a href="home.php?page=upload">Upload a CSV file</a></li>
 				</ul>
 		</div>
 		<!-- end menu -->
@@ -63,7 +64,8 @@ include_once('functions.php');
 									 'branch' => 'branch.php',
 									 'search' => 'search.php',
 									 'view' => 'view_trans.php',
-									 'branch' => 'branch.php' );
+									 'branch' => 'branch.php',
+									 'upload' => 'addExcel.php' );
 					$pageName = $_GET['page'];
 					
 					if( $pageName != "" ) {

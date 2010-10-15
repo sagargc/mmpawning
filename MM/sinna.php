@@ -11,31 +11,6 @@ $branch = $_SESSION['branch'];
 <link
 	rel="stylesheet" href="calendar/calendar.css">
 <script type="text/javascript">
-function getRef(str)
-{
-if (str=="")
-  {
-  document.getElementById("refs").innerHTML="";
-  return;
-  } 
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-    document.getElementById("refs").innerHTML=xmlhttp.responseText;
-    }
-  }
-xmlhttp.open("GET","router.php?do=getrefs&name="+str,true);
-xmlhttp.send();
-}
 function showTrans(str)
 {
 if (str=="")
@@ -67,16 +42,17 @@ xmlhttp.send();
 <table>
 	<form method="POST" action="home.php?page=sinna&submitted=yes"
 		name="sinnaForm">
-	<tr>
-		<td>Customer Name:</td>
-		<td><input type="text" name="name" onclick="getRef(this.value)" /> </select></td>
-	</tr>
+
 	<tr>
 		<td>Bill Number:</td>
-		<td>
-		<div id="refs"></div>
-		</td>
+		<td><input type="text" name="name" onclick="showTrans(this.value)" />
+		</select></td>
 	</tr>
+	<tr>
+		<td>Bill :</td>
+		<td><div id="detail"></div></td>
+	</tr>
+	
 	<tr>
 		<td>Enter Date:</td>
 		<td><input type="text" name="date" value="<?php echo $day;?>" /> <script
@@ -100,14 +76,13 @@ xmlhttp.send();
 	</tr>
 
 	</form>
-	</form>
+	
 </table>
 </legend></fieldset>
 <?php
-displayToday('sinna');
 $dataSubmitted = $_GET['submitted'];
 if($dataSubmitted == "yes") {
-	displayToday('sinna');
+	
 	$genericInsert = "INSERT INTO sinna(ref_no,date) "
 	."VALUES('{$_SESSION['ref_no']}','{$_POST['date']}');";
 	$sinnaResult = mysql_query($genericInsert);
@@ -120,7 +95,16 @@ if($dataSubmitted == "yes") {
 	else {
 		echo '<p>Failed to enter data</p>';
 	}
+	displayToday('sinna');
 
+}
+if ( $_GET['func'] == 'delete' ) {
+	$id = $_GET['ref'];
+	$deleted = deleteRecord($id, 'sinna');
+	if ( $deleted ) {
+		echo '<p>Item deleted successfully.</p>';
+	}
+	displayToday('sinna');
 }
 
 ?>

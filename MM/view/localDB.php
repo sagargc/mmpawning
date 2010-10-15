@@ -2,7 +2,7 @@
 
 $database = "mm_pawning";
 $dbUsername = "root";
-$dbPassword = "rami";
+$dbPassword = "";
 $dbHost2 = 'sl2collegecom.fatcowmysql.com';
 $dbUsername2 = "mmp";
 $dbPassword2 = "123";
