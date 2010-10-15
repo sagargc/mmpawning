@@ -9,7 +9,8 @@ if ( $_GET['do'] == "getrefs" ) {
 	dispRefs($name);
 }
 if ( $_GET['do'] == "getdetails" ) {
-	dispSingle($name);
+	$branch = $_GET['branch'];
+	dispSingle($name, $branch);
 }
 
 ?>

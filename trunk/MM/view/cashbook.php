@@ -32,6 +32,7 @@ xmlhttp.send();
 }
 </script>
 <link rel="stylesheet" href="calendar/calendar.css">
+<div class="gt-error"><p>Choose a date from the calendar and click within the Date field. The cashbook will be displayed.</p></div>
 <table class="gt-notice-box" width="80%">
 <form name="cashbook">
 	<tr><td>Enter Date:</td>

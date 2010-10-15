@@ -30,7 +30,7 @@ $day = date('Y-m-d');
 			<td><input type="text" size="30" maxlength="50" name="amount"></td>
 		</tr>
 		<tr>
-			<td>Discription:</td>
+			<td>Description:</td>
 			<td><textarea name="dis" rows="3" cols="" style="width: 205px;"></textarea></td>
 		</tr>
 		
@@ -60,39 +60,38 @@ $day = date('Y-m-d');
 </fieldset>
 
 <?php
-showStats('expenses');
+$today = date('Y-m-d');
+//displayToday('expenses');
 $dataSubmitted = $_GET['submitted'];
 
 if($dataSubmitted == "yes") {
-        displayToday('expenses');
-        include_once('localDB.php');
-		
-        $genericInsert = "INSERT INTO expenses(discription,ex_id,branch,date,amount) "
-        ."VALUES('{$_POST['dis']}','','{$_POST['branch']}','{$_POST['date']}','{$_POST['amount']}');";
+        $genericInsert = "INSERT INTO expenses(discription,ex_id,branch,date,amount,entryDate)"
+        ."VALUES('{$_POST['dis']}','','{$_POST['branch']}','{$_POST['date']}','{$_POST['amount']}','".$today."');";
         $exResult = mysql_query($genericInsert);
 		
 		$cashResult = mysql_query("SELECT cash FROM hand_cash WHERE branch='{$_POST['branch']}'");
-		$cash = mysql_fetch_array($cashResult);
+		$cash = mysql_fetch_assoc($cashResult);
 		$updatedCash = ($cash['cash'] - $_POST['amount']);
 		$cashUpdate = mysql_query("UPDATE hand_cash SET cash='$updatedCash' WHERE branch='{$_POST['branch']}'"); 
 
         
-        if ( $exResult && $cashUpdate != null ) {
+        if ( ($exResult && $cashUpdate) != null ) {
                 echo '<p>Data entered successfully</p>';
         }
         else {
                 echo '<p>Failed to enter data</p>';
         }
+        displayToday('expences');
 
 }
 //session_start();
 if ( $_GET['func'] == 'delete' ) {
 	$id = $_GET['ref'];
-	$deleted = deleteRecord($id);
+	$deleted = deleteRecord($id, 'expences');
 	if ( $deleted ) {
 		echo '<p>Item deleted successfully.</p>';
 	}
-        displayToday('expenses');
+        displayToday('expences');
 }
 ?>
 

@@ -1,15 +1,10 @@
 <?php
 session_start();
 include_once('loginchecker.php');
-$day = date('d');
-$month = date('F');
-$numericMonth = date('m');
-$year = date('Y');
-
 ?>
 
 
-<p>Click on the Relavent Trancaction</p>
+<p>Click on the Relevant Transaction</p>
 <table cellpadding="40px">
 	<form method="post" action="">
 		<tr>

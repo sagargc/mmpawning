@@ -10,48 +10,61 @@ $day = date('Y-m-d');
 ?>
 <script language="JavaScript" src="calendar/calendar_db.js"></script>
 <link rel="stylesheet" href="calendar/calendar.css">
+<script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
+<script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css" />
+<link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />
 <fieldset><legend><strong>Pawning To <?php echo $_SESSION['branch'] ?> Branch</strong></legend>
-<table>
 
-
-	<form method="POST" action="home.php?page=pawning&amp;submitted=yes"
+<form method="POST" action="home.php?page=pawning&amp;submitted=yes"
 		name="myform">
+<table>
 	<tr>
 		<td>Customer name:</td>
-		<td><input type="text" size="30" maxlength="50" name="name"></td>
+		<td><span id="sprytextfield1">
+		  <input type="text" name="name" id="name" />
+	    <span class="textfieldRequiredMsg">A value is required.</span></span></td>
 	</tr>
 	<tr>
 		<td>Customer ID:</td>
-		<td><input type="text" size="30" maxlength="50" name="id"></td>
+		<td><span id="sprytextfield2">
+		  <input type="text" name="id" id="id" />
+	    <span class="textfieldRequiredMsg">A value is required.</span></span></td>
 	</tr>
 	<tr>
 		<tr>
 			<td>Customer Address:</td>
-			<td><textarea name="address" rows="5" cols="" style="width: 215px;"></textarea></td>
+			<td><span id="sprytextarea1">
+			  <textarea name="address" id="address" cols="30" rows="3"></textarea>
+		    <span class="textareaRequiredMsg">A value is required.</span></span></td>
 		</tr>
 		<tr>
 			<td>Bill number:</td>
-			<td><input type="text" size="30" maxlength="50" name="ref_no"></td>
+			<td><span id="sprytextfield3">
+			  <input type="text" name="ref_no" id="ref_no" />
+		    <span class="textfieldRequiredMsg">A value is required.</span></span></td>
 		</tr>
 
 
 		<tr>
 			<td>Jewellary:</td>
-			<td><select name="type">
-				<option value="">Select</option>
-				<option value="Chain">Chain</option>
-				<option value="Ring">Ring</option>
-				<option value="Bangle">Bangle</option>
-				<option value="Bracelet">bracelet</option>
-			</select></td>
+			<td><span id="sprytextfield6">
+			  <input type="text" name="type" id="ref_no" />
+		    <span class="textfieldRequiredMsg">A value is required.</span></span></td>
 		</tr>
 		<tr>
 			<td>Weight:</td>
-			<td><input type="text" size="30" maxlength="50" name="weight"></td>
+			<td><span id="sprytextfield4">
+            <input type="text" name="weight" id="weight" />
+            <span class="textfieldRequiredMsg">A value is required.</span><span class="textfieldInvalidFormatMsg">Invalid format.</span></span></td>
 		</tr>
 		<tr>
 			<td>Amount:</td>
-			<td><input type="text" size="30" maxlength="50" name="amount"></td>
+			<td>Rs.<span id="sprytextfield5">
+            <input type="text" name="amount" id="amount" />
+            <span class="textfieldRequiredMsg">A value is required.</span><span class="textfieldInvalidFormatMsg">Invalid format.</span></span></td>
 
 		</tr>
 		<tr><td>Enter Date:</td>
@@ -74,16 +87,17 @@ $day = date('Y-m-d');
 		</tr>
 
 	</tr>
-	</form>
-</table>
+	</table>
+</form>
 <legend></legend></fieldset>
 <?php
+$today = date('Y-m-d');
 showStats('pawning');
 $dataSubmitted = $_GET['submitted'];
 if( $dataSubmitted == "yes" ) {
 		//include_once('localDB.php');
-	$genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch) "
-	."VALUES('{$_POST['ref_no']}','{$_POST['amount']}','{$_POST['date']}','{$_POST['type']}','{$_POST['weight']}','{$_SESSION['branch']}');";
+	$genericInsert = "INSERT INTO pawning(ref_no,amount,date,type,weight,branch,entryDate) "
+	."VALUES('{$_POST['ref_no']}','{$_POST['amount']}','{$_POST['date']}','{$_POST['type']}','{$_POST['weight']}','{$_SESSION['branch']}','".$today."');";
 	$pawningResult = mysql_query($genericInsert);
 
 	if ( $customerCheck['name'] == "" ) {
@@ -125,3 +139,14 @@ if ( $_GET['func'] == 'delete' ) {
 	displayToday('pawning');
 }
 ?>
+<script type="text/javascript">
+<!--
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "none", {validateOn:["blur"]});
+var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "none", {validateOn:["blur"]});
+var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1", {validateOn:["blur"]});
+var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3", "none", {validateOn:["blur"]});
+var sprytextfield4 = new Spry.Widget.ValidationTextField("sprytextfield4", "real", {validateOn:["change"]});
+var sprytextfield5 = new Spry.Widget.ValidationTextField("sprytextfield5", "integer", {validateOn:["blur"]});
+var sprytextfield6 = new Spry.Widget.ValidationTextField("sprytextfield6", "none", {validateOn:["blur"]});
+//-->
+</script>

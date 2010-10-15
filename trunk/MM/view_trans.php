@@ -4,10 +4,13 @@ include_once('localDB.php');
 include_once('loginchecker.php');
 include_once('functions.php');
 
-
+$date = date('Y-m-d');
 $data = showStats('view');
 ?>
+<script src="SpryAssets/SpryTabbedPanels.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryTabbedPanels.css" rel="stylesheet" type="text/css" />
 <h3>Transaction details for today</h3>
+
 <table border="0" width="80%">
 	<thead>
 		<tr>
@@ -69,16 +72,26 @@ $data = showStats('view');
 	</tbody>
 
 </table><br/><br/>
-<?php
-display('view');
-if ( $_GET['func'] == 'delete' ) {
-	$id = $_GET['ref'];
-	$deleted = deleteRecord($id, 'view');
-	if ( $deleted ) {
-		echo '<p>Item deleted successfully.</p>';
-	}
-    //display('view');
-}
-?>
+<h3>You Are viewing transactions on <?php echo $date; ?></h3>
+<div id="TabbedPanels1" class="TabbedPanels">
+  <ul class="TabbedPanelsTabGroup">
+    <li class="TabbedPanelsTab" tabindex="0">Pawning</li>
+    <li class="TabbedPanelsTab" tabindex="0">Redeem</li>
+    <li class="TabbedPanelsTab" tabindex="0">Expenses</li>
+    <li class="TabbedPanelsTab" tabindex="0">Sinna</li>
+  </ul>
+  <div class="TabbedPanelsContentGroup">
+    <div class="TabbedPanelsContent"><?php displayWODelete('pawning'); ?></div>
+    <div class="TabbedPanelsContent"><?php displayWODelete('redeem'); ?></div>
+     <div class="TabbedPanelsContent"><?php displayWODelete('expences'); ?></div>
+    <div class="TabbedPanelsContent"><?php displayWODelete('sinna'); ?></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+<!--
+var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");
+//-->
+</script>
 
 
